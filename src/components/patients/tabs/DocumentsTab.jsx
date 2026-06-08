@@ -210,8 +210,6 @@ export default function DocumentsTab({ patient }) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      console.log(doc);
-console.log(doc._id);
                       if (!window.confirm("Delete this image?")) return;
                       deleteDoc(doc._id);
                     }}

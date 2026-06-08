@@ -15,6 +15,7 @@ const schema = Joi.object({
   numAligners:  Joi.number().min(0).optional(),
   // amount:       Joi.number().min(0).optional(),
   rowColor:     Joi.string().valid("white","pink","yellow","purple").optional(),
+  phone: Joi.string().allow("").optional(),
   brux:         Joi.boolean().optional(),
   sconto:       Joi.boolean().optional(),
   priority:     Joi.boolean().optional(),

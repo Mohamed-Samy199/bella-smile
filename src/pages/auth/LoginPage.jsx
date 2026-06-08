@@ -58,8 +58,6 @@ export default function LoginPage() {
     validate,
 
     onSubmit: (values) => {
-      console.log(values);
-
       login(values);
     },
   });

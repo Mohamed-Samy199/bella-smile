@@ -60,7 +60,6 @@ export default function DoctorsPage() {
   const { mutate: deactivate } = useDeactivateDoctor();
   const { data: amData } = useAreaManagers({ size: 100 });
   const { data: distData } = useDistributors({ size: 100 });
-  console.log(amData, distData);
 
   const areaManagers = amData?.result || [];
   const distributors = distData?.result || [];
