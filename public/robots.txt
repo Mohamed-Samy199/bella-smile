@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Allow: /home
+
+# منع الـ Dashboard من الـ indexing
+Disallow: /dashboard
+Disallow: /patients
+Disallow: /doctors
+Disallow: /distributors
+Disallow: /area-managers
+Disallow: /pricing
+Disallow: /my-payments
+Disallow: /payment/
+Disallow: /login
+
+Sitemap: https://www.bellasmile.com/sitemap.xml

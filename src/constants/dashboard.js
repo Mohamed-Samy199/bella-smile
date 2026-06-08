@@ -1,0 +1,86 @@
+import {
+  Camera,
+  CheckCircle,
+  ClipboardList,
+  FileCheck,
+  Truck,
+  Settings,
+  Clock,
+  UserCheck,
+  XCircle,
+  RotateCcw,
+  Package,
+  Scissors,
+  Printer,
+  AlertCircle,
+} from "lucide-react";
+
+export const DASHBOARD_CARDS = [
+  {
+    phase: "Photographic Evaluation",
+    label: "Photographic Evaluation",
+    route: "/patients/?phase=Photographic Evaluation",
+    icon: Camera,
+    color: "text-sky-500",
+    bg: "bg-sky-50",
+  },
+  {
+    phase: "Photographic Evaluation Verification",
+    label: "Photographic Evaluation Verification",
+    route: "/patients?phase=Photographic Evaluation Verification",
+    icon: CheckCircle,
+    color: "text-blue-500",
+    bg: "bg-blue-50",
+  },
+
+  {
+    phase: "Pick Up",
+    label: "Pick Up",
+    route: "/patients?phase=Pick Up",
+    icon: Truck,
+    color: "text-orange-500",
+    bg: "bg-orange-50",
+  },
+  {
+    phase: "Preparation",
+    label: "Preparation",
+    route: "/patients?phase=Preparation",
+    icon: Settings,
+    color: "text-gray-500",
+    bg: "bg-gray-50",
+  },
+  {
+    phase: "Check Care Plan",
+    label: "Check Care Plan",
+    route: "/patients?phase=Check Care Plan",
+    icon: FileCheck,
+    color: "text-teal-500",
+    bg: "bg-teal-50",
+  },
+
+  {
+    phase: "Waiting for Acceptance",
+    label: "Waiting for Acceptance",
+    route: "/patients?phase=Waiting for Acceptance",
+    icon: Clock,
+    color: "text-amber-500",
+    bg: "bg-amber-50",
+  },
+
+  {
+    phase: "Completed",
+    label: "Completed",
+    route: "/patients?phase=Completed",
+    icon: CheckCircle,
+    color: "text-gray-500",
+    bg: "bg-gray-50",
+  },
+  {
+    phase: "Not Suitable",
+    label: "Not Suitable",
+    route: "/patients?phase=Not Suitable",
+    icon: AlertCircle,
+    color: "text-red-500",
+    bg: "bg-red-50",
+  },
+];

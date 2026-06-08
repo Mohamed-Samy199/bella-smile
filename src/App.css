@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--darkColor);
+  font-size: var(--mainFontSize);
+  /* Default font size */
+}
+
+::selection {
+  background-color: rgb(102, 187, 238, 0.4);
+  color: var(--darkColor);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@layer base {
+  :root {
+    /* Color Variables */
+    --mainColor: theme(colors.mainColor);
+    --darkColor: theme(colors.darkColor);
+  }
+}
