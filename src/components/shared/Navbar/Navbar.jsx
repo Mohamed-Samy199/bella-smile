@@ -12,6 +12,12 @@ const Navbar = ({ isTransparent }) => {
   const user = useAuthStore((s) => s.user);
   const logout = useLogout();
 
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    setIsMenuOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -56,32 +62,36 @@ const Navbar = ({ isTransparent }) => {
             </NavLink>
 
             <NavLink
-              to="/for-patients"
+              to="/course-daish"
               className={({ isActive }) => isActive ? activeStyle : normalStyle}
             >
               Course Daish
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
             </NavLink>
 
-            <div className="relative group">
-              <Link to="/about"
-                className={`${isTransparent ? 'text-white' : 'text-gray-600'} flex items-center gap-1  font-semibold hover:text-mainColor transition-colors`}
-              >
-                About <ChevronDown size={16} />
-              </Link>
-              <div className="absolute top-full left-0 mt-4 w-52 bg-white shadow-xl rounded-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all border border-gray-50">
-                <Link to="/about/faq" className="block px-4 py-2.5 hover:bg-blue-50 rounded-xl text-sm font-medium text-gray-700 transition-colors">FAQ</Link>
-                <Link to="/about/contact" className="block px-4 py-2.5 hover:bg-blue-50 rounded-xl text-sm font-medium text-gray-700 transition-colors">Contact</Link>
-              </div>
-            </div>
+            <button
+              onClick={() => scrollToSection("services")}
+              className={normalStyle}
+            >
+              Services
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
+            </button>
 
-            <NavLink
-              to="/challenges"
+            {/* <NavLink
+              to="/#contact"
               className={({ isActive }) => isActive ? activeStyle : normalStyle}
             >
-              Course
+              Contact
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
-            </NavLink>
+            </NavLink> */}
+            <button
+              onClick={() => scrollToSection("contact")}
+              className={normalStyle}
+            >
+              Contact
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
+            </button>
+
             {user && (
               <NavLink
                 to="/dashboard"
@@ -161,8 +171,21 @@ const Navbar = ({ isTransparent }) => {
         }`}>
         <div className="px-6 py-8 space-y-6 shadow-2xl">
           <Link to="/" className="block text-xl font-bold text-darkColor">Home</Link>
-          <Link to="/for-patients" className="block text-xl font-semibold text-gray-600">Course Daish</Link>
-          <Link to="/about" className="block text-xl font-semibold text-gray-600">About Us</Link>
+          <Link to="/course-daish" className="block text-xl font-semibold text-gray-600">Course Daish</Link>
+          <button
+            onClick={() => scrollToSection("services")}
+            className={normalStyle}
+          >
+            Services
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
+          </button>
+          <button
+            onClick={() => scrollToSection("contact")}
+            className={normalStyle}
+          >
+            Contact
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
+          </button>
           <Link to="/dashboard" className="block text-xl font-semibold text-gray-600">Dashboard</Link>
           <hr className="border-gray-100" />
           {user ? (

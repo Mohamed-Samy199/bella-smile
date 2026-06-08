@@ -4,9 +4,9 @@ import bellaLogo from "../../../assets/logo/bella-logo-white.png";
 
 const linksTop = [
   { to: "/", label: "Home" },
-  { to: "/course", label: "Course Daish" },
-  { to: "/about", label: "About" },
-  { to: "/course", label: "Course" },
+  { to: "/course-daish", label: "Course Daish" },
+  // { to: "/about", label: "About" },
+  // { to: "/course", label: "Course" },
 ];
 
 

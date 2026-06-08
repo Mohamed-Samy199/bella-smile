@@ -19,6 +19,7 @@ import MyPaymentsPage from "../pages/payments/MyPaymentsPage";
 import PricingPage from "../pages/pricing/PricingPage";
 import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
+import CourseDaish from "../pages/course-daish/CourseDaish";
 
 export default function AppRoutes() {
   return (
@@ -30,6 +31,7 @@ export default function AppRoutes() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/course-daish" element={<CourseDaish />} />
         </Route>
 
         {/* ━━━━━━━━━ Auth ━━━━━━━━━ */}
