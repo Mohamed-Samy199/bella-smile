@@ -104,7 +104,10 @@ export default function LoginPage() {
           </Link>
 
           <p className="text-gray-500 text-sm mt-2 text-center">
-            Sign in to continue to Bella Smile Dashboard
+            Sign in to continue to {" "}
+            <Link to="/">
+            <span className="text-darkColor/55">Bella Smile Home</span>
+          </Link>
           </p>
         </div>
 
