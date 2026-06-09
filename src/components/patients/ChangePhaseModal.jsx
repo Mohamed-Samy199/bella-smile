@@ -4,10 +4,10 @@ import Modal             from "../ui/Modal";
 import FormField         from "../ui/FormField";
 import SubmitButton      from "../ui/SubmitButton";
 import { useChangePhase } from "../../hooks/patients/useChangePhase";
-import { PHASES }        from "../../constants/phases";
+import { PHASESEXPECT }        from "../../constants/phases";
 
 const schema = Joi.object({
-  phase: Joi.string().valid(...PHASES).required()
+  phase: Joi.string().valid(...PHASESEXPECT).required()
             .messages({ "any.required": "Phase is required." }),
   notes: Joi.string().max(500).optional().allow("").required()
             .messages({ "any.required": "Notes are required." }),
@@ -76,7 +76,7 @@ export default function ChangePhaseModal({ isOpen, onClose, patient }) {
                         }`}
           >
             <option value="">-- Seleziona Fase --</option>
-            {PHASES.map((phase) => (
+            {PHASESEXPECT.map((phase) => (
               <option key={phase} value={phase}
                 className={phase === patient?.currentPhase
                   ? "font-bold text-primary-600" : ""}>
