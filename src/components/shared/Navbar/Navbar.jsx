@@ -189,7 +189,6 @@ const Navbar = ({ isTransparent }) => {
             <span className='block text-xl font-semibold text-gray-600'>
               Contact
             </span>
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
           </button>
           {/* <Link to="/dashboard" className="block text-xl font-semibold text-gray-600">Dashboard</Link> */}
           {user && (
@@ -197,8 +196,9 @@ const Navbar = ({ isTransparent }) => {
               to="/dashboard"
               className={({ isActive }) => isActive ? activeStyle : normalStyle}
             >
-              Dashboard
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
+              <span className='block text-xl mt-7 font-semibold text-gray-600'>
+                Dashboard
+              </span>
             </NavLink>
 
           )}
