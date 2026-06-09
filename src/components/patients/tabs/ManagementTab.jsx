@@ -1,11 +1,9 @@
 import { useFormik } from "formik";
-import Joi from "joi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { patientApi } from "../../../api/patient.api";
 import { QUERY_KEYS } from "../../../constants/queryKeys";
 import FormField from "../../ui/FormField";
-import Input from "../../ui/Input";
 import SubmitButton from "../../ui/SubmitButton";
 import { MESI_OPTIONS, TRATTAMENTO_OPTIONS } from "../../../constants/treatment";
 

@@ -181,7 +181,7 @@ export default function ProfileTab({ patient }) {
                     </p>
                   </div>
 
-                  
+
 
                   <div>
                     <span className="text-xs text-gray-500">City</span>
@@ -204,6 +204,22 @@ export default function ProfileTab({ patient }) {
               value={patient.sconto ? "✓ Yes" : "No"} />
             <InfoRow label="Priority"
               value={patient.priority ? "✓ Yes" : "No"} />
+          </div>
+
+          <div className="space-y-6">
+            {/* بيانات المريض */}
+            {/* Evaluation Note */}
+            {patient?.management?.noteValutazione && (
+              <div className="bg-white border border-gray-200 rounded-2xl p-5">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                  Evaluation Note
+                </h3>
+
+                <p className="text-gray-600 whitespace-pre-wrap leading-relaxed">
+                  {patient.management.noteValutazione}
+                </p>
+              </div>
+            )}
           </div>
 
           <NotesPanel patient={patient} />
