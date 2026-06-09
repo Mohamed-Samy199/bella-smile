@@ -174,19 +174,34 @@ const Navbar = ({ isTransparent }) => {
           <Link to="/course-daish" className="block text-xl font-semibold text-gray-600">Course Daish</Link>
           <button
             onClick={() => scrollToSection("services")}
-            className={normalStyle}
+            className={`${normalStyle} block`}
           >
-            Services
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
+            <span className='block text-xl font-semibold text-gray-600'>
+              Services
+            </span>
+            {/* <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span> */}
           </button>
+
           <button
             onClick={() => scrollToSection("contact")}
-            className={normalStyle}
+            className={`${normalStyle} block`}
           >
-            Contact
+            <span className='block text-xl font-semibold text-gray-600'>
+              Contact
+            </span>
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
           </button>
-          <Link to="/dashboard" className="block text-xl font-semibold text-gray-600">Dashboard</Link>
+          {/* <Link to="/dashboard" className="block text-xl font-semibold text-gray-600">Dashboard</Link> */}
+          {user && (
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) => isActive ? activeStyle : normalStyle}
+            >
+              Dashboard
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-mainColor transition-all group-hover:w-full"></span>
+            </NavLink>
+
+          )}
           <hr className="border-gray-100" />
           {user ? (
 

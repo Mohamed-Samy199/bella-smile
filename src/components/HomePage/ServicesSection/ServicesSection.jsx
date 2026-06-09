@@ -159,7 +159,7 @@ const ServicesDynamic = () => {
         </div>
 
         <h2 className="text-darkColor h2-smile text-5xl lg:text-6xl font-extrabold leading-tight mb-16 max-w-3xl mx-auto group cursor-default">
-          Tailored Clear Aligner Care For Your Perfect{" "}
+          Tailored Clear Aligner Care For Your Perfect{" "}<br/>
           <span className="relative inline-block mx-2 pb-4 text-mainColor">
             Smile
             <svg
