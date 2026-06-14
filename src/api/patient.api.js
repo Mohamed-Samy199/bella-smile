@@ -4,10 +4,12 @@ export const patientApi = {
   // ── CRUD ────────────────────────────────────────────────────────────────────
   getAll: (params) => client.get("/patients", { params }),
   getById: (id) => client.get(`/patients/${id}`),
-  create: (data) => client.post("/patients", data),
+  // create: (data) => client.post("/patients", data),
+  create: (formData) => client.post("/patients", formData, { headers: { "Content-Type": "multipart/form-data" }, }),
   update: (id, data) => client.put(`/patients/${id}`, data),
   remove: (id) => client.delete(`/patients/${id}`),
   changePhase: (id, data) => client.patch(`/patients/${id}/phase`, data),
+  setCasePrice: (id, data) => client.patch(`/patients/${id}/case-price`, data),
 
   // ── Workflow ─────────────────────────────────────────────────────────────────
   workflow: (id, action, data = {}) => client.post(`/patients/${id}/${action}`, data),
@@ -23,6 +25,8 @@ export const patientApi = {
   deleteDocument: (id, docIndex) =>
     client.delete(`/patients/${id}/documents/${docIndex}`),
 
+  updatePreviewLink: (id, previewLink) =>
+    client.patch(`/patients/${id}/preview-link`, { previewLink }),
   // Management
   updateManagement: (id, data) =>
     client.put(`/patients/${id}/management`, data),
@@ -38,7 +42,14 @@ export const patientApi = {
   // Activity Log
   getActivityLog: (id, params = {}) => client.get(`/patients/${id}/activity-log`, { params }),
 
-  addNote: (id, message) => client.post(`/patients/${id}/notes`, { message }),
+  // Note
+  addNote: (patientId, message, isInternal = false) =>
+    client.post(`/patients/${patientId}/notes`, { message, isInternal }),
   getNotes: (id) => client.get(`/patients/${id}/notes`),
+
+  //Request Retreatment
+  requestRetreatment: (id, note) => client.post(`/patients/${id}/retreatment/request`, { note }),
+  reviewRetreatment: (id, action, reason) => client.patch(`/patients/${id}/retreatment/review`, { action, rejectReason: reason }),
+  getPendingRetreatments: () => client.get("/patients/retreatments/pending"),
 
 };

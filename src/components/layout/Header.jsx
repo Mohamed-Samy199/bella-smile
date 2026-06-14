@@ -9,7 +9,6 @@ const PAGE_TITLES = {
   "/area-managers":"List of Area Managers",
   "/distributors": "Distributor List",
   "/my-payments":  "My Payments",
-  "/pricing":      "Pricing",
 };
 
 export default function Header({ onMenuClick }) {

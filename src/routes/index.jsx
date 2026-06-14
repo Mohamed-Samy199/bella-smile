@@ -16,10 +16,10 @@ import PatientDetailPage from "../pages/patients/PatientDetailPage";
 import PaymentSuccessPage from "../pages/payments/PaymentSuccessPage";
 import PaymentCancelPage from "../pages/payments/PaymentCancelPage";
 import MyPaymentsPage from "../pages/payments/MyPaymentsPage";
-import PricingPage from "../pages/pricing/PricingPage";
 import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 import CourseDaish from "../pages/course-daish/CourseDaish";
+import RetreatmentsPage from "../pages/retreatments/RetreatmentsPage";
 
 export default function AppRoutes() {
   return (
@@ -51,7 +51,7 @@ export default function AppRoutes() {
               <Route path="/area-managers" element={<AreaManagersPage />} />
               <Route path="/distributors" element={<DistributorsPage />} />
               <Route path="/doctors" element={<DoctorsPage />} />
-              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/retreatments" element={<RetreatmentsPage />} />
             </Route>
           </Route>
         </Route>

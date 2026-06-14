@@ -1,11 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import {
   LayoutDashboard, Users, Stethoscope,
-  Building2, Truck, LogOut, CreditCard, Euro, X,
+  Building2, Truck, LogOut, CreditCard, Euro, X, RefreshCw
 } from "lucide-react";
 import logo from "../../assets/logo/bella.png";
 import useAuthStore from "../../store/auth.store";
 import { useLogout } from "../../hooks/auth/useLogout";
+import { usePendingRetreatments } from "../../hooks/patients/useRetreatment";
 
 const NAV_ITEMS = [
   { label: "Dashboard", to: "/dashboard", icon: LayoutDashboard, roles: ["admin", "doctor"] },
@@ -14,16 +15,18 @@ const NAV_ITEMS = [
   { label: "Distributors", to: "/distributors", icon: Truck, roles: ["admin"] },
   { label: "Patients", to: "/patients", icon: Users, roles: ["admin", "doctor"] },
   { label: "Payments", to: "/my-payments", icon: CreditCard, roles: ["doctor"] },
-  { label: "Pricing", to: "/pricing", icon: Euro, roles: ["admin"] },
+  { label: "Re-treatments", to: "/retreatments", icon: RefreshCw, roles: ["admin"] },
 ];
 
 export default function Sidebar({ isOpen, onClose }) {
+  const { data: requests = [] } = usePendingRetreatments();
   const user = useAuthStore((s) => s.user);
   const logout = useLogout();
 
   const visibleItems = NAV_ITEMS.filter((item) =>
     item.roles.includes(user?.role)
   );
+
 
   return (
     <aside
@@ -60,6 +63,7 @@ export default function Sidebar({ isOpen, onClose }) {
             key={item.to}
             item={item}
             onClose={onClose}
+            pendingCount={requests.length}
           />
         ))}
       </nav>
@@ -98,14 +102,16 @@ export default function Sidebar({ isOpen, onClose }) {
   );
 }
 
-function SidebarLink({ item, onClose }) {
+
+function SidebarLink({ item, onClose, pendingCount }) {
   const Icon = item.icon;
+
   return (
     <NavLink
       to={item.to}
       onClick={onClose}
       className={({ isActive }) =>
-        `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm
+        `flex items-center justify-between px-3 py-2.5 rounded-xl text-sm
          font-medium transition-colors
          ${isActive
           ? "bg-primary-50 text-primary-600 font-semibold"
@@ -113,8 +119,28 @@ function SidebarLink({ item, onClose }) {
         }`
       }
     >
-      <Icon size={18} />
-      {item.label}
+      <div className="flex items-center gap-3">
+        <Icon size={18} />
+        <span>{item.label}</span>
+      </div>
+
+      {item.to === "/retreatments" && pendingCount > 0 && (
+        <span
+          className="
+            bg-amber-100
+            text-amber-700
+            text-[10px]
+            font-bold
+            px-2
+            py-0.5
+            rounded-full
+            min-w-[20px]
+            text-center
+          "
+        >
+          {pendingCount}
+        </span>
+      )}
     </NavLink>
   );
-};
+}

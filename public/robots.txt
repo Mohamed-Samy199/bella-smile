@@ -8,7 +8,6 @@ Disallow: /patients
 Disallow: /doctors
 Disallow: /distributors
 Disallow: /area-managers
-Disallow: /pricing
 Disallow: /my-payments
 Disallow: /payment/
 Disallow: /login

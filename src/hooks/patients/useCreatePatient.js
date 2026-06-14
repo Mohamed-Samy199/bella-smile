@@ -7,17 +7,13 @@ export const useCreatePatient = (onSuccess) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data) => patientApi.create(data),
-
+    mutationFn: (formData) => patientApi.create(formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["patients"] });
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.DASHBOARD_STATS });
       toast.success("Patient created successfully.");
       onSuccess?.();
     },
-
-    onError: (error) => {
-      toast.error(error.message || "Failed to create patient.");
-    },
+    onError: (e) => toast.error(e.message || "Failed to create patient."),
   });
 };

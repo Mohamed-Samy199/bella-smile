@@ -5,12 +5,12 @@ import ReactCompareImage from 'react-compare-image';
 
 import backgroundPattern from '../../../assets/gallery/bg.webp';
 import bella from '../../../assets/logo/bella.png';
-import crowding1 from '../../../assets/gallery/Crowding Case before.webp';
-import crowding2 from '../../../assets/gallery/Crowding Case after.webp';
-import spacing1 from '../../../assets/gallery/Spacing Case before.webp';
-import spacing2 from '../../../assets/gallery/Spacing Case after.webp';
-import deepBite1 from '../../../assets/gallery/Deep Bite Case before.webp';
-import deepBite2 from '../../../assets/gallery/Deep Bite Case after.webp';
+import crowding1 from '../../../assets/gallery/before-1.webp';
+import crowding2 from '../../../assets/gallery/after-1.webp';
+import spacing1 from '../../../assets/gallery/before-2.webp';
+import spacing2 from '../../../assets/gallery/after-2.webp';
+import deepBite1 from '../../../assets/gallery/before-3.webp';
+import deepBite2 from '../../../assets/gallery/after-3.webp';
 import Specialist from '../../../assets/gallery/smile specialist.webp';
 
 const SmileGallery = () => {
@@ -150,9 +150,9 @@ const SmileGallery = () => {
                           )}
                         </div>
 
-                        <div className={`mt-4 mb-2 text-center font-bold transition-all duration-300 ${isCenter ? 'text-darkColor text-xl' : 'text-gray-400 text-sm opacity-50'}`}>
+                        {/* <div className={`mt-4 mb-2 text-center font-bold transition-all duration-300 ${isCenter ? 'text-darkColor text-xl' : 'text-gray-400 text-sm opacity-50'}`}>
                           {caseItem.title}
-                        </div>
+                        </div> */}
                       </motion.div>
                     );
                   })}

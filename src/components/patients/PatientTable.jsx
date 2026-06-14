@@ -8,12 +8,11 @@ const COLUMNS = [
   { label: "Discount",    width: "w-14" },
   { label: "Patient",  width: ""     },
   { label: "Doctor",   width: ""     },
-  { label: "BRUX",      width: "w-16" },
-  { label: "Num All.",  width: "w-20" },
-  { label: "Treatment",    width: "w-16" },
+  { label: "Aligners",  width: "w-20" },
   { label: "Status",     width: ""     },
   { label: "Date",      width: "w-28" },
   { label: "Decision", width: "w-16" },
+  // { label: "Pay",    width: "w-16" },
   { label: "",          width: "w-10" },
 ];
 

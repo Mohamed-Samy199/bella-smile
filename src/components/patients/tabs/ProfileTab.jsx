@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pencil, RefreshCw, ChevronRight, ChevronDown } from "lucide-react";
+import { Pencil, RefreshCw, ChevronRight, ChevronDown, CircleArrowLeft } from "lucide-react";
 
 import useAuthStore from "../../../store/auth.store";
 import EditPatientModal from "../EditPatientModal";
@@ -8,6 +8,8 @@ import WorkflowModal from "../WorkflowModal";
 import PhaseHistory from "../PhaseHistory";
 import { WORKFLOW_CONFIG } from "../../../constants/workflow";
 import NotesPanel from "../NotesPanel";
+import RetreatmentRequestModal from "../RetreatmentRequestModal";
+import PatientSummary from "../PatientSummary";
 
 // ── Info Row ──────────────────────────────────────────────────
 function InfoRow({ label, value }) {
@@ -52,6 +54,7 @@ export default function ProfileTab({ patient }) {
   const [showChangePhase, setShowChangePhase] = useState(false);
   const [showWorkflow, setShowWorkflow] = useState(false);
   const [showDoctorInfo, setShowDoctorInfo] = useState(false);
+  const [showRetreatment, setShowRetreatment] = useState(false);
 
 
   const hasWorkflow = !!WORKFLOW_CONFIG[patient.currentPhase];
@@ -68,11 +71,30 @@ export default function ProfileTab({ patient }) {
     white: "bg-white border border-gray-200",
   };
 
+  const showRetreatmentBtn =
+    user?.role === "doctor" &&
+    patient.currentPhase === "Completed" &&
+    patient.retreatmentRequest?.status !== "pending";
+
+
+
   return (
     <div className="space-y-5">
 
       {/* Action Buttons */}
       <div className="flex items-center gap-2 justify-end flex-wrap">
+
+        {showRetreatmentBtn && (
+          <button
+            onClick={() => setShowRetreatment(true)}
+            className="flex items-center gap-1.5 bg-mainColor hover:bg-mainColor/80 text-white text-sm
+                          font-medium px-4 py-2 rounded-xl transition active:scale-95"
+            title="Request Re-treatment"
+          >
+            <CircleArrowLeft size={15} />
+            Re-treatment
+          </button>
+        )}
 
         {user?.role === "admin" && hasWorkflow && (
           <button
@@ -195,11 +217,9 @@ export default function ProfileTab({ patient }) {
 
 
             <InfoRow label="Treatment" value={patient.treatment} />
-            <InfoRow label="Num. Aligners" value={patient.numAligners} />
+            {/* <InfoRow label="Num. Aligners" value={patient.numAligners} /> */}
             {/* <InfoRow label="Amount"
               value={patient.amount ? `€${patient.amount}` : "—"} /> */}
-            <InfoRow label="BRUX"
-              value={patient.brux ? "✓ Yes" : "No"} />
             <InfoRow label="Discount"
               value={patient.sconto ? "✓ Yes" : "No"} />
             <InfoRow label="Priority"
@@ -228,12 +248,11 @@ export default function ProfileTab({ patient }) {
           <div className="bg-white rounded-2xl border border-gray-100
                           shadow-sm p-5">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">
-              Dates
+              Date
             </h3>
-            <InfoRow label="Readiness Date"
+            <InfoRow label="Ready Date"
               value={formatDate(patient.dataPronte)} />
-            <InfoRow label="Acceptance Date"
-              value={formatDate(patient.dataAccettazione)} />
+            
           </div>
 
           {/* Flags */}
@@ -294,6 +313,86 @@ export default function ProfileTab({ patient }) {
             )}
           </div>
 
+          {patient?.retreatmentRequest?.status && patient.currentPhase === "Completed" && (
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+              <h3 className="text-md font-semibold text-gray-700 mb-4">
+                Re-treatment Request
+              </h3>
+
+              {/* Pending */}
+              {patient.retreatmentRequest.status === "pending" && (
+                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                  <p className="font-medium text-amber-700">
+                    ⏳ Request Pending
+                  </p>
+
+                  {patient.retreatmentRequest.note && (
+                    <p className="text-sm text-amber-600 mt-2">
+                      Reason:
+                      {" "}
+                      {patient.retreatmentRequest.note}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Approved */}
+              {patient.retreatmentRequest.status === "approved" && (
+                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+                  <p className="font-medium text-green-700">
+                    ✅ Request Approved
+                  </p>
+
+                  <p className="text-sm text-green-600 mt-1">
+                    Treatment has been restarted.
+                  </p>
+
+                  {patient.retreatmentRequest.reviewedAt && (
+                    <p className="text-xs text-green-500 mt-2">
+                      Reviewed:
+                      {" "}
+                      {new Date(
+                        patient.retreatmentRequest.reviewedAt
+                      ).toLocaleDateString("en-GB")}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Rejected */}
+              {patient.retreatmentRequest.status === "rejected" && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                  <p className="font-medium text-red-700">
+                    ❌ Request Rejected
+                  </p>
+
+                  {patient.retreatmentRequest.rejectReason && (
+                    <p className="text-sm text-red-600 mt-2">
+                      Reason:
+                      {" "}
+                      {patient.retreatmentRequest.rejectReason}
+                    </p>
+                  )}
+
+                  {patient.retreatmentRequest.reviewedAt && (
+                    <p className="text-xs text-red-500 mt-2">
+                      Reviewed:
+                      {" "}
+                      {new Date(
+                        patient.retreatmentRequest.reviewedAt
+                      ).toLocaleDateString("en-GB")}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ── Summary ──────────────────────────────────────── */}
+          <div className="md:col-span-4 mt-2">
+            <PatientSummary patient={patient} />
+          </div>
+
           {/* Phase History */}
           <div className="bg-white rounded-2xl border border-gray-100
                           shadow-sm p-5">
@@ -320,6 +419,11 @@ export default function ProfileTab({ patient }) {
       <WorkflowModal
         isOpen={showWorkflow}
         onClose={() => setShowWorkflow(false)}
+        patient={patient}
+      />
+      <RetreatmentRequestModal
+        isOpen={showRetreatment}
+        onClose={() => setShowRetreatment(false)}
         patient={patient}
       />
 

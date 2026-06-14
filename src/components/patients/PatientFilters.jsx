@@ -60,14 +60,14 @@ export default function PatientFilters({ filters, onChange }) {
 
       {/* Data Accettazione */}
       <div className="relative">
-        <input
+        {/* <input
           type="date"
           value={filters.dataAccettazione || ""}
           onChange={(e) => handleChange("dataAccettazione", e.target.value)}
           className="border border-gray-200 rounded-xl px-3 py-2 text-sm
                      text-gray-500 bg-white focus:outline-none
                      focus:ring-2 focus:ring-primary-500"
-        />
+        /> */}
         {/* {!filters.dataAccettazione && (
           <span className="absolute left-3 top-1/2 -translate-y-1/2
                            text-gray-400 text-sm pointer-events-none">

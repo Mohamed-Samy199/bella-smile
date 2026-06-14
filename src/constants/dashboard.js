@@ -1,17 +1,12 @@
 import {
   Camera,
   CheckCircle,
-  ClipboardList,
   FileCheck,
   Truck,
   Settings,
   Clock,
-  UserCheck,
-  XCircle,
-  RotateCcw,
   Package,
-  Scissors,
-  Printer,
+  Factory,
   AlertCircle,
 } from "lucide-react";
 
@@ -65,6 +60,24 @@ export const DASHBOARD_CARDS = [
     icon: Clock,
     color: "text-amber-500",
     bg: "bg-amber-50",
+  },
+
+  {
+    phase: "STL",
+    label: "STL",
+    route: "/patients?phase=STL",
+    icon: Package,
+    color: "text-purple-500",
+    bg: "bg-purple-50",
+  },
+
+  {
+    phase: "Manufacturing",
+    label: "Manufacturing",
+    route: "/patients?phase=Manufacturing",
+    icon: Factory,
+    color: "text-cyan-500",
+    bg: "bg-cyan-50",
   },
 
   {

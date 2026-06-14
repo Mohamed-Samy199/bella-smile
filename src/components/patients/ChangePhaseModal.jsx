@@ -9,7 +9,7 @@ import { PHASESEXPECT }        from "../../constants/phases";
 const schema = Joi.object({
   phase: Joi.string().valid(...PHASESEXPECT).required()
             .messages({ "any.required": "Phase is required." }),
-  notes: Joi.string().max(500).optional().allow("").required()
+  notes: Joi.string().max(500).optional().allow("")
             .messages({ "any.required": "Notes are required." }),
 });
 
@@ -75,7 +75,7 @@ export default function ChangePhaseModal({ isOpen, onClose, patient }) {
                           : "border-gray-300 focus:ring-primary-500"
                         }`}
           >
-            <option value="">-- Seleziona Fase --</option>
+            <option value="">-- Select Phase --</option>
             {PHASESEXPECT.map((phase) => (
               <option key={phase} value={phase}
                 className={phase === patient?.currentPhase
@@ -90,7 +90,7 @@ export default function ChangePhaseModal({ isOpen, onClose, patient }) {
         </FormField>
 
         {/* Notes */}
-        <FormField label="Notes *"
+        <FormField label="Notes"
           error={formik.errors.notes}
           touched={formik.touched.notes}>
           <textarea

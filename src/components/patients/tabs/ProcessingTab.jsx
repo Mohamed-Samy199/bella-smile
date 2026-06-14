@@ -330,8 +330,8 @@ export default function ProcessingTab({ patient }) {
   });
 
   const lav       = patient.lavorazioni || [];
-  const superiore = lav.filter((r) => r.jaw === "superiore");
-  const inferiore = lav.filter((r) => r.jaw === "inferiore");
+  const upper = lav.filter((r) => r.jaw === "upper");
+  const lower = lav.filter((r) => r.jaw === "lower");
 
   return (
     <div className="space-y-8">
@@ -355,8 +355,8 @@ export default function ProcessingTab({ patient }) {
       {/* Upper Arch */}
       <JawSection
         title="Upper"
-        jaw="superiore"
-        rows={superiore}
+        jaw="upper"
+        rows={upper}
         onAdd={(data) => addRow(data)}
         onUpdate={(lavId, data) => updateRow({ lavId, data })}
         onDelete={(lavId) => deleteRow(lavId)}
@@ -367,8 +367,8 @@ export default function ProcessingTab({ patient }) {
       {/* Lower Arch */}
       <JawSection
         title="Lower"
-        jaw="inferiore"
-        rows={inferiore}
+        jaw="lower"
+        rows={lower}
         onAdd={(data) => addRow(data)}
         onUpdate={(lavId, data) => updateRow({ lavId, data })}
         onDelete={(lavId) => deleteRow(lavId)}

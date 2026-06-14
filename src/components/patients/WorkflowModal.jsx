@@ -1,16 +1,16 @@
-import { useMemo }          from "react";
-import { useFormik }                  from "formik";
-import Joi                            from "joi";
-import { CreditCard, ExternalLink }   from "lucide-react";
-import Modal                          from "../ui/Modal";
-import FormField                      from "../ui/FormField";
-import Input                          from "../ui/Input";
-import SubmitButton                   from "../ui/SubmitButton";
-import Spinner                        from "../ui/Spinner";
-import { WORKFLOW_CONFIG }            from "../../constants/workflow";
-import { usePatientWorkflow }         from "../../hooks/patients/usePatientWorkflow";
-import { useCreateSession }           from "../../hooks/payments/useCreateSession";
-import useAuthStore                   from "../../store/auth.store";
+import { useMemo } from "react";
+import { useFormik } from "formik";
+import Joi from "joi";
+import { CreditCard, ExternalLink } from "lucide-react";
+import Modal from "../ui/Modal";
+import FormField from "../ui/FormField";
+import Input from "../ui/Input";
+import SubmitButton from "../ui/SubmitButton";
+import Spinner from "../ui/Spinner";
+import { WORKFLOW_CONFIG } from "../../constants/workflow";
+import { usePatientWorkflow } from "../../hooks/patients/usePatientWorkflow";
+import { useCreateSession } from "../../hooks/payments/useCreateSession";
+import useAuthStore from "../../store/auth.store";
 
 // ── Schema Builder ────────────────────────────────────────────
 const buildSchema = (fields = []) => {
@@ -21,17 +21,17 @@ const buildSchema = (fields = []) => {
       case "select":
         shape[field.name] = field.required
           ? Joi.string()
-               .valid(...field.options.map((o) => o.value))
-               .required()
-               .messages({
-                 "any.only":     `Please select a valid ${field.label}.`,
-                 "any.required": `${field.label} is required.`,
-                 "string.empty": `${field.label} is required.`,
-               })
+            .valid(...field.options.map((o) => o.value))
+            .required()
+            .messages({
+              "any.only": `Please select a valid ${field.label}.`,
+              "any.required": `${field.label} is required.`,
+              "string.empty": `${field.label} is required.`,
+            })
           : Joi.string()
-               .valid(...field.options.map((o) => o.value))
-               .optional()
-               .allow("");
+            .valid(...field.options.map((o) => o.value))
+            .optional()
+            .allow("");
         break;
       case "number":
         shape[field.name] = field.required
@@ -41,9 +41,9 @@ const buildSchema = (fields = []) => {
       case "date":
         shape[field.name] = field.required
           ? Joi.date().required().messages({
-              "any.required": `${field.label} is required.`,
-              "date.base":    `${field.label} must be a valid date.`,
-            })
+            "any.required": `${field.label} is required.`,
+            "date.base": `${field.label} must be a valid date.`,
+          })
           : Joi.date().optional().allow("");
         break;
       case "checkbox":
@@ -62,8 +62,8 @@ const buildInitialValues = (fields = []) =>
     (acc, field) => {
       acc[field.name] =
         field.type === "checkbox" ? false
-        : field.type === "number" ? 0
-        : "";
+          : field.type === "number" ? 0
+            : "";
       return acc;
     },
     { notes: "" }
@@ -83,13 +83,13 @@ const makeValidate = (schema) => (values) => {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 export default function WorkflowModal({ isOpen, onClose, patient }) {
-  const config  = WORKFLOW_CONFIG[patient?.currentPhase];
-  const user    = useAuthStore((s) => s.user);
+  const config = WORKFLOW_CONFIG[patient?.currentPhase];
+  const user = useAuthStore((s) => s.user);
 
-  const { mutate: runAction,     isPending: actionPending }  = usePatientWorkflow(patient?._id);
+  const { mutate: runAction, isPending: actionPending } = usePatientWorkflow(patient?._id);
   const { mutate: createSession, isPending: sessionPending } = useCreateSession();
 
-  const schema        = useMemo(() => buildSchema(config?.fields),        [patient?.currentPhase]);
+  const schema = useMemo(() => buildSchema(config?.fields), [patient?.currentPhase]);
   const initialValues = useMemo(() => buildInitialValues(config?.fields), [patient?.currentPhase]);
 
   const formik = useFormik({
@@ -150,6 +150,30 @@ export default function WorkflowModal({ isOpen, onClose, patient }) {
           <p className="text-sm text-gray-500">{config.description}</p>
         </div>
 
+        {user?.role === "admin" &&
+          patient?.currentPhase === "Photographic Evaluation Verification" && (
+            <div className={`rounded-xl px-4 py-3 border text-sm
+              ${patient?.casePrice?.amount
+                ? "bg-green-50 border-green-200 text-green-700"
+                : "bg-amber-50 border-amber-200 text-amber-700"
+              }`}>
+              {patient?.casePrice?.amount ? (
+                <>
+                  ✅ Case price set:{" "}
+                  <strong>
+                    {patient.casePrice.currency?.toUpperCase()}{" "}
+                    {patient.casePrice.amount}
+                  </strong>
+                </>
+              ) : (
+                <>
+                  ⚠️ No case price set yet. The doctor won't be able to pay
+                  until you set a price for this case.
+                </>
+              )}
+            </div>
+          )}
+
         {/* ── Payment Required Block ──────────────────────── */}
         {needsPayment ? (
           <div className="space-y-4">
@@ -166,9 +190,9 @@ export default function WorkflowModal({ isOpen, onClose, patient }) {
               <p className="text-xs text-amber-600">
                 To proceed to Preparation, you need to complete the
                 payment for{" "}
-                <span className="font-bold">
+                {/* <span className="font-bold">
                   {patient.numAligners} aligners
-                </span>
+                </span> */}
                 .
               </p>
               <p className="text-xs text-amber-500">
@@ -281,9 +305,9 @@ function DynamicField({ field, value, error, touched, onChange, onBlur }) {
                       text-gray-700 bg-white focus:outline-none
                       focus:ring-2 transition
                       ${touched && error
-                        ? "border-red-400 focus:ring-red-300"
-                        : "border-gray-300 focus:ring-primary-500"
-                      }`}
+              ? "border-red-400 focus:ring-red-300"
+              : "border-gray-300 focus:ring-primary-500"
+            }`}
         >
           <option value="">-- Select --</option>
           {field.options.map((opt) => (

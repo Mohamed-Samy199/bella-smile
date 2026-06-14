@@ -66,7 +66,7 @@ export default function MyPaymentsPage() {
                 </td>
                 <td className="px-4 py-3 text-sm font-semibold text-gray-700">
                   {symbol}
-                  {(payment.amount / 100).toFixed(2)}
+                  {(payment.amount).toFixed(2)}
                 </td>
                   {/* {payment.amount ? (payment.amount / 100).toFixed(2) : "0.00"} */}
                 <td className="px-4 py-3">

@@ -5,6 +5,8 @@ export const PHASES = [
   "Preparation",
   "Check Care Plan",
   "Waiting for Acceptance",
+  "STL",
+  "Manufacturing",
   "Completed",
   "Not Suitable",
 ];
@@ -16,6 +18,8 @@ export const PHASESEXPECT = [
   "Preparation",
   "Check Care Plan",
   "Waiting for Acceptance",
+  // "STL",
+  // "Manufacturing",
   "Completed",
   "Not Suitable",
 ];
