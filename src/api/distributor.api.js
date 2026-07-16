@@ -6,4 +6,5 @@ export const distributorApi = {
   create:     (data)     => client.post("/distributors",        data),
   update:     (id, data) => client.put(`/distributors/${id}`,   data),
   deactivate: (id)       => client.delete(`/distributors/${id}`),
+  getDashboard: (id) => client.get(`/distributors/${id}/dashboard`),
 };

@@ -215,8 +215,7 @@ export default function ProfileTab({ patient }) {
               )}
             </div>
 
-
-            <InfoRow label="Treatment" value={patient.treatment} />
+            <InfoRow label="Treatment" value={patient.management?.trattamento} />
             {/* <InfoRow label="Num. Aligners" value={patient.numAligners} /> */}
             {/* <InfoRow label="Amount"
               value={patient.amount ? `€${patient.amount}` : "—"} /> */}

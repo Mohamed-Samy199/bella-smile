@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import {
   LayoutDashboard, Users, Stethoscope,
-  Building2, Truck, LogOut, CreditCard, Euro, X, RefreshCw
+  Building2, Truck, LogOut, CreditCard, PanelsTopLeft, X, RefreshCw
 } from "lucide-react";
 import logo from "../../assets/logo/bella.png";
 import useAuthStore from "../../store/auth.store";
@@ -10,9 +10,11 @@ import { usePendingRetreatments } from "../../hooks/patients/useRetreatment";
 
 const NAV_ITEMS = [
   { label: "Dashboard", to: "/dashboard", icon: LayoutDashboard, roles: ["admin", "doctor"] },
+  { label: "Overview", to: "/overview", icon: PanelsTopLeft, roles: ["admin"] },
   { label: "Area Manager", to: "/area-managers", icon: Building2, roles: ["admin"] },
   { label: "Doctors", to: "/doctors", icon: Stethoscope, roles: ["admin"] },
   { label: "Distributors", to: "/distributors", icon: Truck, roles: ["admin"] },
+  { label: "Doctor Profile", to: "/doctor-dashboard", icon: Stethoscope, roles: ["doctor"] },
   { label: "Patients", to: "/patients", icon: Users, roles: ["admin", "doctor"] },
   { label: "Payments", to: "/my-payments", icon: CreditCard, roles: ["doctor"] },
   { label: "Re-treatments", to: "/retreatments", icon: RefreshCw, roles: ["admin"] },

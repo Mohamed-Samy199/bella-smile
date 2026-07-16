@@ -20,6 +20,11 @@ import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 import CourseDaish from "../pages/course-daish/CourseDaish";
 import RetreatmentsPage from "../pages/retreatments/RetreatmentsPage";
+import OverviewPage from "../pages/overview/OverviewPage";
+import DistributorDashboard from "../pages/distributors/DistributorDashboard";
+import AreaManagerDashboard from "../pages/area-managers/AreaManagerDashboard";
+import DoctorDashboard from "../pages/doctors/DoctorDashboard";
+import DoctorOverviewPage from "../pages/doctors/DoctorOverviewPage";
 
 export default function AppRoutes() {
   return (
@@ -27,7 +32,6 @@ export default function AppRoutes() {
       <Routes>
 
         {/* ━━━━━━━━━ Website ━━━━━━━━━ */}
-        {/* ✅ Layout بيتعمل mount مرة واحدة بس */}
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />
@@ -46,12 +50,19 @@ export default function AppRoutes() {
             <Route path="/patients" element={<PatientsPage />} />
             <Route path="/patients/:id" element={<PatientDetailPage />} />
             <Route path="/my-payments" element={<MyPaymentsPage />} />
+            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+            <Route path="/overview" element={<OverviewPage />} />
+            <Route path="/doctors/:id/overview" element={<DoctorOverviewPage />} />
+
 
             <Route element={<AdminRoute />}>
               <Route path="/area-managers" element={<AreaManagersPage />} />
               <Route path="/distributors" element={<DistributorsPage />} />
               <Route path="/doctors" element={<DoctorsPage />} />
               <Route path="/retreatments" element={<RetreatmentsPage />} />
+              <Route path="/distributors/:id/dashboard" element={<DistributorDashboard />} />
+              <Route path="/area-managers/:id/dashboard" element={<AreaManagerDashboard />} />
+
             </Route>
           </Route>
         </Route>

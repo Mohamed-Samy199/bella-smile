@@ -1,17 +1,18 @@
-import { useState }               from "react";
-import { useFormik }              from "formik";
-import Joi                        from "joi";
-import { Pencil, Trash2 }         from "lucide-react";
-import { useDistributors }        from "../../hooks/distributors/useDistributors";
-import { useCreateDistributor }   from "../../hooks/distributors/useCreateDistributor";
-import { useUpdateDistributor }   from "../../hooks/distributors/useUpdateDistributor";
-import { useDeleteDistributor }   from "../../hooks/distributors/useDeleteDistributor";
-import ListPage                   from "../../components/shared/ListPage";
-import Modal                      from "../../components/ui/Modal";
-import EditModal                  from "../../components/shared/EditModal";
-import FormField                  from "../../components/ui/FormField";
-import Input                      from "../../components/ui/Input";
-import SubmitButton               from "../../components/ui/SubmitButton";
+import { useState }                  from "react";
+import { useFormik }                 from "formik";
+import Joi                           from "joi";
+import { Pencil, Trash2, BarChart2 } from "lucide-react";
+import { useDistributors }           from "../../hooks/distributors/useDistributors";
+import { useCreateDistributor }      from "../../hooks/distributors/useCreateDistributor";
+import { useUpdateDistributor }      from "../../hooks/distributors/useUpdateDistributor";
+import { useDeleteDistributor }      from "../../hooks/distributors/useDeleteDistributor";
+import ListPage                      from "../../components/shared/ListPage";
+import Modal                         from "../../components/ui/Modal";
+import EditModal                     from "../../components/shared/EditModal";
+import FormField                     from "../../components/ui/FormField";
+import Input                         from "../../components/ui/Input";
+import SubmitButton                  from "../../components/ui/SubmitButton";
+import { useNavigate }               from "react-router-dom";
 
 const schema = Joi.object({
   companyName: Joi.string().min(2).required(),
@@ -35,6 +36,8 @@ export default function DistributorsPage() {
   const { mutate: create,  isPending: creating } = useCreateDistributor(() => setShowCreate(false));
   const { mutate: update,  isPending: updating } = useUpdateDistributor(() => setEditTarget(null));
   const { mutate: remove }                       = useDeleteDistributor();
+
+  const navigate = useNavigate();
 
   const createFormik = useFormik({
     initialValues: { companyName: "", address: "", email: "", phone: "" },
@@ -104,6 +107,14 @@ export default function DistributorsPage() {
                 >
                   <Trash2 size={20} strokeWidth={2.2} />
                 </button>
+                
+            <button
+              onClick={() => navigate(`/distributors/${dist._id}/dashboard`)}
+              className="text-gray-400 hover:text-primary-500 hover:text-mainColor transition"
+              title="View dashboard"
+            >
+              <BarChart2 size={16} />
+            </button>
               </div>
             </td>
           </>

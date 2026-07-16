@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import Joi from "joi";
-import { Pencil, Trash2 } from "lucide-react";
+import { BarChart2, Pencil, Trash2 } from "lucide-react";
 import { useDoctors } from "../../hooks/doctors/useDoctors";
 import { useCreateDoctor } from "../../hooks/doctors/useCreateDoctor";
 import { useUpdateDoctor } from "../../hooks/doctors/useUpdateDoctor";
@@ -16,6 +16,7 @@ import Input from "../../components/ui/Input";
 import SubmitButton from "../../components/ui/SubmitButton";
 import PaymentExemptToggle from "../../components/payments/PaymentExemptToggle";
 import ChangeRoleButton from "../../components/users/ChangeRoleButton";
+import { useNavigate } from "react-router-dom";
 
 // ── Schemas ───────────────────────────────────────────────────
 const createSchema = Joi.object({
@@ -60,6 +61,7 @@ export default function DoctorsPage() {
   const { mutate: deactivate } = useDeactivateDoctor();
   const { data: amData } = useAreaManagers({ size: 100 });
   const { data: distData } = useDistributors({ size: 100 });
+  const navigate = useNavigate();
 
   const areaManagers = amData?.result || [];
   const distributors = distData?.result || [];
@@ -69,7 +71,7 @@ export default function DoctorsPage() {
     initialValues: {
       email: "", password: "", firstName: "", lastName: "",
       address: "", city: "", phone: "",
-      areaManager: "", distributor: "",agency: ""
+      areaManager: "", distributor: "", agency: ""
     },
     validate: makeValidate(createSchema),
     onSubmit: (values) => {
@@ -146,7 +148,7 @@ export default function DoctorsPage() {
       <ListPage
         title="List of Doctors"
         addLabel="Create Doctor"
-        columns={["First Name", "Last Name", "Address", "City", "Email", "Phone", "Agency", "Area Manager", "Created At" , "Payment Exempt","Role", "Actions"]}
+        columns={["First Name", "Last Name", "Address", "City", "Email", "Phone", "Agency", "Area Manager", "Created At", "Payment Exempt", "Role", "Actions"]}
         data={data?.result}
         pagination={data?.pagination}
         isLoading={isLoading}
@@ -213,6 +215,14 @@ export default function DoctorsPage() {
                   title="Deactivate"
                 >
                   <Trash2 size={20} strokeWidth={2.2} />
+                </button>
+
+                <button
+                  onClick={() => navigate(`/doctors/${doc._id}/overview`)}
+                  className="text-gray-400 hover:text-primary-500 hover:text-mainColor transition"
+                  title="View doctor overview"
+                >
+                  <BarChart2 size={18} strokeWidth={2.2} />
                 </button>
               </div>
             </td>
@@ -286,7 +296,7 @@ export default function DoctorsPage() {
                 onChange={createFormik.handleChange}
                 onBlur={createFormik.handleBlur} />
             </FormField>
-             <FormField label="Agency">
+            <FormField label="Agency">
               <Input name="agency" value={createFormik.values.agency}
                 onChange={createFormik.handleChange}
                 onBlur={createFormik.handleBlur} />

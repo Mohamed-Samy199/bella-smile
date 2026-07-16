@@ -224,7 +224,8 @@ export default function PatientRow({ patient, onDelete }) {
             {/* STL Request Button — يظهر في Waiting for Acceptance */}
             {/* STL Request Button */}
             {patient.currentPhase === "Waiting for Acceptance" &&
-              user?.role === "doctor" && (
+              // user?.role === "doctor" &&
+               (
                 <>
                   {patient.acceptanceDecision === "pending" && (
                     <>
