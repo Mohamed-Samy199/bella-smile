@@ -1,12 +1,12 @@
-import { useMutation }  from "@tanstack/react-query";
-import { useNavigate }  from "react-router-dom";
-import toast            from "react-hot-toast";
-import { authApi }      from "../../api/auth.api";
-import useAuthStore     from "../../store/auth.store";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { authApi } from "../../api/auth.api";
+import useAuthStore from "../../store/auth.store";
 
 export const useRegister = () => {
   const navigate = useNavigate();
-  const setAuth  = useAuthStore((s) => s.setAuth); // ← setAuth مش setUser
+  const setAuth = useAuthStore((s) => s.setAuth); // ← setAuth مش setUser
 
   return useMutation({
     mutationFn: (data) => authApi.register(data),
@@ -20,8 +20,8 @@ export const useRegister = () => {
       navigate("/");
     },
     onError: (e) => {
-      const msg = e.response?.data?.message;
-      console.log("error =>" , e);
+      console.log("Full error response:", e.response?.data);
+      const msg = e.response?.data?.message || "Registration failed.";
       toast.error(msg);
     },
   });
