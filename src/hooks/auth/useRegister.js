@@ -12,6 +12,7 @@ export const useRegister = () => {
     mutationFn: (data) => authApi.register(data),
     onSuccess: (res) => {
       const { token, user } = res.data;
+console.log(res);
 
       // نفس اللي بيعمله useLogin
       setAuth({ user, token });
@@ -21,8 +22,35 @@ export const useRegister = () => {
     },
     onError: (e) => {
       console.log("Full error response:", e.response?.data);
+      console.log("error ========>" , e);
+      
       const msg = e.response?.data?.message || "Registration failed.";
       toast.error(msg);
     },
   });
 };
+
+
+
+
+// export const useLogin = () => {
+//   const navigate = useNavigate();
+//   const setAuth  = useAuthStore((s) => s.setAuth);
+
+//   return useMutation({
+//     mutationFn: ({ email, password }) => authApi.login({ email, password }),
+
+//     onSuccess: ({ data }) => {
+//       setAuth({ user: data.user, token: data.token });
+//       toast.success(`Welcome back, ${data.user.name}!`);
+//       navigate("/dashboard", { replace: true });
+//     },
+//     onError: (error) => {
+//   console.log(error);
+
+//   toast.error(
+//     error.message || "Invalid email or password."
+//   );
+// },
+//   });
+// };
