@@ -21,6 +21,8 @@ export const useRegister = () => {
     },
     onError: (e) => {
       const msg = e.response?.data?.message || "Registration failed.";
+      console.log("error =>" , e.response?.data);
+      
       toast.error(msg);
     },
   });

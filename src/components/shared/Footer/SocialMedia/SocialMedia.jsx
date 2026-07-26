@@ -7,7 +7,7 @@ function SocialMedia() {
         <div className="col-span-1 mx-2 flex justify-center items-center">
           <Link
             target="_blank"
-            to="https://www.instagram.com/wolsey_structuralengineering/"
+            to="https://www.instagram.com/b_smi1e/"
           >
             <i className="fa-brands fa-instagram text-white rounded-full p-2 custom-text-lg border-white border-[3px]"></i>
           </Link>
@@ -23,15 +23,9 @@ function SocialMedia() {
         </div>
 
         <div className="col-span-1 mx-2 flex justify-center items-center">
-          <Link target="_blank" to="https://x.com/MosaicHoldingCo">
-            <i className="fa-brands fa-x-twitter text-white rounded-full p-2 custom-text-lg border-white border-[3px]"></i>
-          </Link>
-        </div>
-
-        <div className="col-span-1 mx-2 flex justify-center items-center">
           <Link
             target="_blank"
-            to="https://wa.me/20128893487046"
+            to="https://wa.me/+201024981900"
           >
             <i className="fa-brands fa-whatsapp text-white rounded-full p-2 custom-text-lg border-white border-[3px]"></i>
           </Link>
