@@ -25,6 +25,7 @@ import DistributorDashboard from "../pages/distributors/DistributorDashboard";
 import AreaManagerDashboard from "../pages/area-managers/AreaManagerDashboard";
 import DoctorDashboard from "../pages/doctors/DoctorDashboard";
 import DoctorOverviewPage from "../pages/doctors/DoctorOverviewPage";
+import RegisterPage from "../pages/auth/RegisterPage";
 
 export default function AppRoutes() {
   return (
@@ -39,6 +40,7 @@ export default function AppRoutes() {
         </Route>
 
         {/* ━━━━━━━━━ Auth ━━━━━━━━━ */}
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password/:token" element={<ResetPasswordPage />} />

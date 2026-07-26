@@ -106,8 +106,8 @@ export default function LoginPage() {
           <p className="text-gray-500 text-sm mt-2 text-center">
             Sign in to continue to {" "}
             <Link to="/">
-            <span className="text-darkColor/55">Bella Smile Home</span>
-          </Link>
+              <span className="text-darkColor/55">Bella Smile Home</span>
+            </Link>
           </p>
         </div>
 
@@ -203,7 +203,7 @@ export default function LoginPage() {
               Remember me
             </label> */}
 
-            
+
             <div className="text-center">
               <Link
                 to="/forgot-password"
@@ -239,6 +239,13 @@ export default function LoginPage() {
             {isPending ? "Signing in..." : "Sign In"}
           </button>
 
+          <p className="text-center text-sm text-gray-400 mt-5">
+            Don't have an account?{" "}
+            <Link to="/register"
+              className="text-mainColor hover:underline font-medium">
+              Create one
+            </Link>
+          </p>
         </form>
       </div>
     </div>
