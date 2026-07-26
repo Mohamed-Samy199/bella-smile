@@ -20,7 +20,7 @@ export const useRegister = () => {
       navigate("/");
     },
     onError: (e) => {
-      const msg = e.response?.data?.message || "Registration failed.";
+      const msg = e.response?.data?.message;
       console.log("error =>" , e);
       toast.error(msg);
     },
