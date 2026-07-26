@@ -5,22 +5,23 @@ import { authApi }      from "../../api/auth.api";
 import useAuthStore     from "../../store/auth.store";
 
 export const useRegister = () => {
-  const navigate  = useNavigate();
-  const setUser   = useAuthStore((s) => s.setUser);
-  const setToken  = useAuthStore((s) => s.setToken);
+  const navigate = useNavigate();
+  const setAuth  = useAuthStore((s) => s.setAuth); // ← setAuth مش setUser
 
   return useMutation({
     mutationFn: (data) => authApi.register(data),
     onSuccess: (res) => {
       const { token, user } = res.data;
-      setToken(token);
-      setUser(user);
-      localStorage.setItem("token", token);
+
+      // نفس اللي بيعمله useLogin
+      setAuth({ user, token });
+
       toast.success("Account created! Welcome.");
-      navigate("/doctor-dashboard");
+      navigate("/");
     },
     onError: (e) => {
-      toast.error(e.response?.data?.message || "Registration failed.");
+      const msg = e.response?.data?.message || "Registration failed.";
+      toast.error(msg);
     },
   });
 };

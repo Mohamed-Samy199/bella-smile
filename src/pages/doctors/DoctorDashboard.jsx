@@ -361,7 +361,7 @@ export default function DoctorDashboard() {
           <p className="text-gray-400 text-sm">No active cases.</p>
           <button
             onClick={() => navigate("/patients")}
-            className="mt-3 text-xs text-primary-500 hover:underline"
+            className="mt-3 text-xs font-semibold text-gray-700 hover:underline"
           >
             View all patients →
           </button>
