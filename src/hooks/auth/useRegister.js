@@ -12,7 +12,7 @@ export const useRegister = () => {
     mutationFn: (data) => authApi.register(data),
     onSuccess: (res) => {
       const { token, user } = res.data;
-console.log(res);
+// console.log(res);
 
       // نفس اللي بيعمله useLogin
       setAuth({ user, token });
