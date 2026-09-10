@@ -3,7 +3,7 @@ import Joi from "joi";
 import { useLogin } from "../../hooks/auth/useLogin";
 import { Eye, EyeOff } from "lucide-react";
 import logo from "../../assets/logo/bella.png";
-import bgPattern from "../../assets/logo/logo-bg.png";
+import bgPattern from "../../assets/logo/logo-bg.webp";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -19,15 +19,11 @@ const loginSchema = Joi.object({
       "any.required": "Email is required.",
     }),
 
-  password: Joi.string()
-    .min(8)
-    .max(128)
-    .required()
-    .messages({
-      "string.min": "Password must be at least 8 characters.",
-      "string.empty": "Password is required.",
-      "any.required": "Password is required.",
-    }),
+  password: Joi.string().min(8).max(128).required().messages({
+    "string.min": "Password must be at least 8 characters.",
+    "string.empty": "Password is required.",
+    "any.required": "Password is required.",
+  }),
 });
 
 // ── Joi → Formik validate adapter ────────────────────────────
@@ -64,19 +60,19 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#f7fafc] flex items-center justify-center px-4">
-
       {/* Background Pattern */}
       <div
         className="absolute inset-0 opacity-[0.8]"
         style={{
           backgroundImage: `url(${bgPattern})`,
-          backgroundRepeat: "repeat",
-          backgroundSize: "450px",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       />
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-black/50" />
+      {/* <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-black/50" /> */}
       {/* <div className="absolute inset-0 bg-gradient-to-br from-[#66BBEE]/40 via-white/10 to-[#1a6fa8]/50" /> */}
       {/* <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-white/5 to-black/70" /> */}
       {/* Login Card */}
@@ -92,7 +88,6 @@ export default function LoginPage() {
           p-8 md:p-10
         "
       >
-
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
           <Link to="/">
@@ -104,7 +99,7 @@ export default function LoginPage() {
           </Link>
 
           <p className="text-gray-500 text-sm mt-2 text-center">
-            Sign in to continue to {" "}
+            Sign in to continue to{" "}
             <Link to="/">
               <span className="text-darkColor/55">Bella Smile Home</span>
             </Link>
@@ -112,11 +107,7 @@ export default function LoginPage() {
         </div>
 
         {/* Form */}
-        <form
-          onSubmit={formik.handleSubmit}
-          className="space-y-5"
-        >
-
+        <form onSubmit={formik.handleSubmit} className="space-y-5">
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -138,17 +129,16 @@ export default function LoginPage() {
                 transition-all duration-200
                 focus:outline-none focus:ring-4
 
-                ${formik.touched.email && formik.errors.email
-                  ? "border-red-400 focus:ring-red-100"
-                  : "border-gray-200 focus:ring-[#66BBEE]/20 focus:border-[#66BBEE]"
+                ${
+                  formik.touched.email && formik.errors.email
+                    ? "border-red-400 focus:ring-red-100"
+                    : "border-gray-200 focus:ring-[#66BBEE]/20 focus:border-[#66BBEE]"
                 }
               `}
             />
 
             {formik.touched.email && formik.errors.email && (
-              <p className="text-red-500 text-xs mt-2">
-                {formik.errors.email}
-              </p>
+              <p className="text-red-500 text-xs mt-2">{formik.errors.email}</p>
             )}
           </div>
 
@@ -171,10 +161,11 @@ export default function LoginPage() {
         bg-white/70 backdrop-blur-sm
         transition-all duration-200
         focus:outline-none focus:ring-4
-        ${formik.touched.password && formik.errors.password
-                    ? "border-red-400 focus:ring-red-100"
-                    : "border-gray-200 focus:ring-[#66BBEE]/20 focus:border-[#66BBEE]"
-                  }
+        ${
+          formik.touched.password && formik.errors.password
+            ? "border-red-400 focus:ring-red-100"
+            : "border-gray-200 focus:ring-[#66BBEE]/20 focus:border-[#66BBEE]"
+        }
       `}
               />
               <button
@@ -187,13 +178,14 @@ export default function LoginPage() {
               </button>
             </div>
             {formik.touched.password && formik.errors.password && (
-              <p className="text-red-500 text-xs mt-2">{formik.errors.password}</p>
+              <p className="text-red-500 text-xs mt-2">
+                {formik.errors.password}
+              </p>
             )}
           </div>
 
           {/* Remember + Forgot */}
           <div className="flex items-center justify-between text-sm">
-
             {/* <label className="flex items-center gap-2 text-gray-600 cursor-pointer">
               <input
                 type="checkbox"
@@ -202,7 +194,6 @@ export default function LoginPage() {
 
               Remember me
             </label> */}
-
 
             <div className="text-center">
               <Link
@@ -213,17 +204,12 @@ export default function LoginPage() {
                 Forgot your password?
               </Link>
             </div>
-
           </div>
 
           {/* Submit */}
           <button
             type="submit"
-            disabled={
-              isPending ||
-              !formik.isValid ||
-              !formik.dirty
-            }
+            disabled={isPending || !formik.isValid || !formik.dirty}
             className="
               w-full py-3.5 rounded-2xl
               bg-mainColor
@@ -241,8 +227,10 @@ export default function LoginPage() {
 
           <p className="text-center text-sm text-gray-400 mt-5">
             Don't have an account?{" "}
-            <Link to="/register"
-              className="text-mainColor hover:underline font-medium">
+            <Link
+              to="/register"
+              className="text-mainColor hover:underline font-medium"
+            >
               Create one
             </Link>
           </p>
