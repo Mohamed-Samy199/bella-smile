@@ -32,8 +32,8 @@ export default function HeroHome() {
                 preserveAspectRatio="none"
               >
                 <path
-                  className="transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] stroke-mainColor"
-                  d="M10 15 Q 50 35 90 15"
+                  // className="transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] stroke-mainColor"
+                  // d="M10 15 Q 50 35 90 15"
                   // هنا نخبر المتصفح بتحديث مسار الرسمة عند عمل هوفر على الـ h1
                   style={{
                     strokeWidth: "4",
