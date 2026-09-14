@@ -120,7 +120,7 @@ export default function LoginPage() {
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              placeholder="admin@bellasmile.com"
+              placeholder="admin@bellasmille.com"
               className={`
                 w-full rounded-2xl border px-4 py-3.5
                 text-gray-800 placeholder-gray-400

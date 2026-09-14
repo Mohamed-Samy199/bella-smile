@@ -3,8 +3,8 @@ import { useEffect } from "react";
 export default function SEOHead({
   title       = "Bella Smile",
   description = "Professional dental clinic management system for aligner treatments.",
-  image       = "https://www.bellasmile.com/og-image.png",
-  url         = "https://www.bellasmile.com",
+  image       = "https://www.bellasmille.com/og-image.png",
+  url         = "https://www.bellasmille.com",
   noIndex     = false,
 }) {
   useEffect(() => {

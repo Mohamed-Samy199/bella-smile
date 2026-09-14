@@ -12,4 +12,4 @@ Disallow: /my-payments
 Disallow: /payment/
 Disallow: /login
 
-Sitemap: https://www.bellasmile.com/sitemap.xml
+Sitemap: https://www.bellasmille.com/sitemap.xml

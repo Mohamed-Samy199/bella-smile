@@ -4,8 +4,8 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type":    "MedicalBusiness",
     "name":     "Bella Smile",
-    "url":      "https://www.bellasmile.com",
-    "logo":     "https://www.bellasmile.com/images/favicon.png",
+    "url":      "https://www.bellasmille.com",
+    "logo":     "https://www.bellasmille.com/images/favicon.png",
     "description": "Professional dental aligner management system",
     "medicalSpecialty": "Dentistry",
     "availableService": {
