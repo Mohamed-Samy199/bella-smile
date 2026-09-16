@@ -112,7 +112,49 @@ export default function WorkflowModal({ isOpen, onClose, patient }) {
 
   if (!isOpen || !patient || !config) return null;
 
-  if (user?.role !== "admin") return null;
+  const needsCasePrice =
+    user?.role === "doctor" &&
+    config.requiresCasePrice &&
+    !patient.casePrice?.amount;
+  const needsAdminApproval =
+    user?.role === "doctor" && config.adminOnly;
+
+  if (needsCasePrice || needsAdminApproval) {
+    return (
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title={needsCasePrice ? "Case Price Required" : "Administrator Approval Required"}
+        size="sm"
+      >
+        <div className="space-y-4 text-sm text-gray-600">
+          <p>
+            {needsCasePrice
+              ? "The case price must be set by the administrator before moving this patient to the next phase."
+              : "This phase can only be completed by the administrator. Please contact the administrator to continue."}
+          </p>
+          <p>Contact the administrator on phone or WhatsApp:</p>
+          <a
+            href="https://wa.me/201024981900"
+            target="_blank"
+            rel="noreferrer"
+            className="block text-center bg-mainColor hover:bg-mainColor/80
+                       text-white font-semibold rounded-xl px-4 py-3 transition"
+          >
+            Contact Admin: 01024981900
+          </a>
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-full border border-gray-200 text-gray-600
+                       rounded-xl px-4 py-3 hover:bg-gray-50 transition"
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
+    );
+  }
 
   return (
     <Modal

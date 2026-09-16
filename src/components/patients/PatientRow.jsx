@@ -45,6 +45,12 @@ export default function PatientRow({ patient, onDelete }) {
     : "—";
 
   const hasWorkflow = !!WORKFLOW_CONFIG[patient.currentPhase];
+  const workflowConfig = WORKFLOW_CONFIG[patient.currentPhase];
+  const needsCasePrice =
+    user?.role === "doctor" &&
+    workflowConfig?.requiresCasePrice &&
+    !patient.casePrice?.amount;
+  const needsAdminApproval = user?.role === "doctor" && workflowConfig?.adminOnly;
   const symbol = CURRENCY_SYMBOLS[patient.casePrice?.currency?.toLowerCase()] || "$";
 
   const showSetPriceBtn =
@@ -294,9 +300,15 @@ export default function PatientRow({ patient, onDelete }) {
 
             {/* Workflow → next phase */}
             {hasWorkflow && patient.currentPhase !== "Waiting for Acceptance" && (
-              <button onClick={() => setShowWorkflow(true)}
-                className="text-darkColor hover:text-darkColor/70 transition"
-                title="Advance Phase">
+              <button
+                onClick={() => setShowWorkflow(true)}
+                className={`text-darkColor hover:text-darkColor/70 transition
+                  ${needsCasePrice || needsAdminApproval
+                    ? "opacity-50 cursor-not-allowed"
+                    : ""}`}
+                title={needsCasePrice || needsAdminApproval
+                  ? "Contact administrator"
+                  : "Advance Phase"}>
                 {/* <ChevronRight size={16} /> */}
                 <CircleArrowRight size={28} strokeWidth={2.2} />
               </button>

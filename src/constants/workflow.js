@@ -11,6 +11,7 @@ export const WORKFLOW_CONFIG = {
     action: "suitability-pickup",
     label: "Pick Up",
     description: "Set suitability and proceed to Pick Up.",
+    requiresCasePrice: true,
     requiresPayment: false,
     fields: [
       // {
@@ -60,6 +61,7 @@ export const WORKFLOW_CONFIG = {
     action: "Preparation",
     label: "Preparation",
     description: "The patient is waiting for the first visit.",
+    adminOnly: true,
     requiresPayment: false,
     fields: [],
   },

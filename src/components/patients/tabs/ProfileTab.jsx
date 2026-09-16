@@ -58,12 +58,17 @@ export default function ProfileTab({ patient }) {
 
 
   const hasWorkflow = !!WORKFLOW_CONFIG[patient.currentPhase];
+  const workflowConfig = WORKFLOW_CONFIG[patient.currentPhase];
+  const needsCasePrice =
+    user?.role === "doctor" &&
+    workflowConfig?.requiresCasePrice &&
+    !patient.casePrice?.amount;
   const doctorLabel = patient.doctor
     ? `${patient.doctor.firstName} ${patient.doctor.lastName}`
     : "—";
   const formatDate = (d) =>
     d ? new Date(d).toLocaleDateString("en-GB") : "—";
-  const whatsappNumber = (patient.phone || "").replace(/\D/g, "");
+  // const whatsappNumber = (patient.phone || "").replace(/\D/g, "");
 
   const ROW_COLOR_MAP = {
     pink: "bg-pink-300",
@@ -97,13 +102,17 @@ export default function ProfileTab({ patient }) {
           </button>
         )}
 
-        {user?.role === "admin" && hasWorkflow && (
+        {hasWorkflow && (
           <button
             onClick={() => setShowWorkflow(true)}
-            className="flex items-center gap-1.5 bg-mainColor
+            disabled={workflowConfig?.adminOnly && user?.role !== "admin"}
+            className={`flex items-center gap-1.5 bg-mainColor
                           hover:bg-mainColor/80 text-white text-sm
                           font-medium px-4 py-2 rounded-xl transition
-                          active:scale-95"
+                          active:scale-95 disabled:opacity-50
+                          disabled:cursor-not-allowed
+                          ${needsCasePrice ? "opacity-50 cursor-not-allowed" : ""}`}
+            title={needsCasePrice ? "Case price required" : "Advance Phase"}
           >
             <ChevronRight size={15} />
             Advance Phase
