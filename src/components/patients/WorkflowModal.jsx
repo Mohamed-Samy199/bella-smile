@@ -1,15 +1,12 @@
 import { useMemo } from "react";
 import { useFormik } from "formik";
 import Joi from "joi";
-import { CreditCard, ExternalLink } from "lucide-react";
 import Modal from "../ui/Modal";
 import FormField from "../ui/FormField";
 import Input from "../ui/Input";
 import SubmitButton from "../ui/SubmitButton";
-import Spinner from "../ui/Spinner";
 import { WORKFLOW_CONFIG } from "../../constants/workflow";
 import { usePatientWorkflow } from "../../hooks/patients/usePatientWorkflow";
-import { useCreateSession } from "../../hooks/payments/useCreateSession";
 import useAuthStore from "../../store/auth.store";
 
 // ── Schema Builder ────────────────────────────────────────────
@@ -87,7 +84,6 @@ export default function WorkflowModal({ isOpen, onClose, patient }) {
   const user = useAuthStore((s) => s.user);
 
   const { mutate: runAction, isPending: actionPending } = usePatientWorkflow(patient?._id);
-  const { mutate: createSession, isPending: sessionPending } = useCreateSession();
 
   const schema = useMemo(() => buildSchema(config?.fields), [patient?.currentPhase]);
   const initialValues = useMemo(() => buildInitialValues(config?.fields), [patient?.currentPhase]);
@@ -116,16 +112,7 @@ export default function WorkflowModal({ isOpen, onClose, patient }) {
 
   if (!isOpen || !patient || !config) return null;
 
-  // ── هل المرحلة دي محتاجة دفع؟ ───────────────────────────
-  // Doctor → محتاج يدفع
-  // Admin  → مش محتاج
-  const needsPayment =
-    config.requiresPayment && user?.role === "doctor" && !patient?.doctor?.paymentExempt;
-
-  const handlePayClick = () => {
-    createSession({ patientId: patient._id });
-    // redirect سيتم تلقائياً
-  };
+  if (user?.role !== "admin") return null;
 
   return (
     <Modal
@@ -150,95 +137,8 @@ export default function WorkflowModal({ isOpen, onClose, patient }) {
           <p className="text-sm text-gray-500">{config.description}</p>
         </div>
 
-        {user?.role === "admin" &&
-          patient?.currentPhase === "Photographic Evaluation Verification" && (
-            <div className={`rounded-xl px-4 py-3 border text-sm
-              ${patient?.casePrice?.amount
-                ? "bg-green-50 border-green-200 text-green-700"
-                : "bg-amber-50 border-amber-200 text-amber-700"
-              }`}>
-              {patient?.casePrice?.amount ? (
-                <>
-                  ✅ Case price set:{" "}
-                  <strong>
-                    {patient.casePrice.currency?.toUpperCase()}{" "}
-                    {patient.casePrice.amount}
-                  </strong>
-                </>
-              ) : (
-                <>
-                  ⚠️ No case price set yet. The doctor won't be able to pay
-                  until you set a price for this case.
-                </>
-              )}
-            </div>
-          )}
-
-        {/* ── Payment Required Block ──────────────────────── */}
-        {needsPayment ? (
-          <div className="space-y-4">
-
-            {/* Payment Info */}
-            <div className="bg-amber-50 border border-amber-200
-                            rounded-xl px-4 py-4 space-y-2">
-              <div className="flex items-center gap-2">
-                <CreditCard size={16} className="text-amber-600" />
-                <p className="text-sm font-semibold text-amber-700">
-                  Payment Required
-                </p>
-              </div>
-              <p className="text-xs text-amber-600">
-                To proceed to Preparation, you need to complete the
-                payment for{" "}
-                {/* <span className="font-bold">
-                  {patient.numAligners} aligners
-                </span> */}
-                .
-              </p>
-              <p className="text-xs text-amber-500">
-                You'll be redirected to Stripe's secure checkout page.
-              </p>
-            </div>
-
-            {/* Pay Button */}
-            <button
-              type="button"
-              onClick={handlePayClick}
-              disabled={sessionPending}
-              className="w-full bg-primary-500 hover:bg-primary-600
-                         text-white py-3 rounded-xl font-semibold text-sm
-                         transition active:scale-95 disabled:opacity-60
-                         flex items-center justify-center gap-2"
-            >
-              {sessionPending ? (
-                <>
-                  <Spinner size="sm" color="white" />
-                  Redirecting...
-                </>
-              ) : (
-                <>
-                  <ExternalLink size={15} />
-                  Pay & Proceed to Preparation
-                </>
-              )}
-            </button>
-
-            {/* Cancel */}
-            <button
-              type="button"
-              onClick={onClose}
-              className="w-full border border-gray-200 text-gray-500
-                         py-2.5 rounded-xl text-sm font-medium
-                         hover:bg-gray-50 transition"
-            >
-              Cancel
-            </button>
-
-          </div>
-
-        ) : (
-          /* ── Normal Workflow ────────────────────────────── */
-          <>
+        {/* ── Admin approval workflow ─────────────────────── */}
+        <>
             {/* Dynamic Fields */}
             {config.fields.map((field) => (
               <DynamicField
@@ -284,8 +184,7 @@ export default function WorkflowModal({ isOpen, onClose, patient }) {
               label={`Confirm → ${config.label}`}
               pendingLabel="Processing..."
             />
-          </>
-        )}
+        </>
 
       </form>
     </Modal>

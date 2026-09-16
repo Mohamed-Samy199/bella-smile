@@ -108,7 +108,7 @@ function StatusBadge({ phase }) {
   const map = {
     "Photographic Evaluation":              { label: "Under evaluation",    cls: "bg-green-100 text-green-700"  },
     "Photographic Evaluation Verification": { label: "Evaluation received", cls: "bg-blue-100 text-blue-700"   },
-    "Pick Up":                              { label: "Pending payment",     cls: "bg-amber-100 text-amber-700" },
+    "Pick Up":                              { label: "Awaiting admin approval", cls: "bg-amber-100 text-amber-700" },
     "Preparation":                          { label: "In preparation",      cls: "bg-blue-100 text-blue-700"   },
     "Check Care Plan":                      { label: "Care plan review",    cls: "bg-blue-100 text-blue-700"   },
     "Waiting for Acceptance":               { label: "Awaiting decision",   cls: "bg-amber-100 text-amber-700" },
@@ -190,12 +190,6 @@ console.log(data);
           <p className="text-xs text-gray-400 mt-0.5">
             {doctor?.city || "—"}
             {doctor?.agency ? ` · ${doctor.agency}` : ""}
-            {doctor?.paymentExempt && (
-              <span className="ml-2 bg-green-100 text-green-700 px-2 py-0.5
-                               rounded-full text-[10px] font-medium">
-                Payment exempt
-              </span>
-            )}
           </p>
         </div>
       </div>
@@ -205,7 +199,6 @@ console.log(data);
         <StatCard label="Total patients"   value={stats?.totalPatients}  />
         <StatCard label="Active cases"     value={stats?.activePatients} />
         <StatCard label="Completed"        value={stats?.completedCases} />
-        <StatCard label="Pending payment"  value={stats?.pendingPayment} danger />
       </div>
 
       {/* Featured / Selected Patient */}

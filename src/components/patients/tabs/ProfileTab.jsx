@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pencil, RefreshCw, ChevronRight, ChevronDown, CircleArrowLeft } from "lucide-react";
+import { Pencil, RefreshCw, ChevronRight, ChevronDown, CircleArrowLeft, MessageCircle } from "lucide-react";
 
 import useAuthStore from "../../../store/auth.store";
 import EditPatientModal from "../EditPatientModal";
@@ -63,6 +63,7 @@ export default function ProfileTab({ patient }) {
     : "—";
   const formatDate = (d) =>
     d ? new Date(d).toLocaleDateString("en-GB") : "—";
+  const whatsappNumber = (patient.phone || "").replace(/\D/g, "");
 
   const ROW_COLOR_MAP = {
     pink: "bg-pink-300",
@@ -152,6 +153,18 @@ export default function ProfileTab({ patient }) {
                 <p className="text-sm text-gray-700 mt-0.5">
                   {patient?.phone || "N/A"}
                 </p>
+                {whatsappNumber && (
+                  <a
+                    href={`https://wa.me/${whatsappNumber}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-2 text-sm font-medium text-green-600 hover:text-green-700"
+                    title="Contact patient on WhatsApp"
+                  >
+                    <MessageCircle size={16} />
+                    WhatsApp patient
+                  </a>
+                )}
               </div>
               {/* Row Color */}
               <div className={`w-4 h-4 rounded-full

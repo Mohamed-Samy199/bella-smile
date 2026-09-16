@@ -14,7 +14,6 @@ import EditModal from "../../components/shared/EditModal";
 import FormField from "../../components/ui/FormField";
 import Input from "../../components/ui/Input";
 import SubmitButton from "../../components/ui/SubmitButton";
-import PaymentExemptToggle from "../../components/payments/PaymentExemptToggle";
 import ChangeRoleButton from "../../components/users/ChangeRoleButton";
 import { useNavigate } from "react-router-dom";
 
@@ -148,7 +147,7 @@ export default function DoctorsPage() {
       <ListPage
         title="List of Doctors"
         addLabel="Create Doctor"
-        columns={["First Name", "Last Name", "Address", "City", "Email", "Phone", "Agency", "Area Manager", "Created At", "Payment Exempt", "Role", "Actions"]}
+        columns={["First Name", "Last Name", "Address", "City", "Email", "Phone", "Agency", "Area Manager", "Created At", "Role", "Actions"]}
         data={data?.result}
         pagination={data?.pagination}
         isLoading={isLoading}
@@ -178,9 +177,6 @@ export default function DoctorsPage() {
               {new Date(doc.createdAt).toLocaleDateString("en-GB")}
             </td>
 
-            <td className="px-4 py-3">
-              <PaymentExemptToggle doctor={doc} />
-            </td>
             {/* <td className="px-4 py-3">
               <ChangeRoleButton userId={doc._id} currentRole={doc.role} userName={`${doc.firstName} ${doc.lastName}`} />
             </td> */}

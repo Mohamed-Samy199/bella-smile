@@ -60,7 +60,7 @@ export const WORKFLOW_CONFIG = {
     action: "Preparation",
     label: "Preparation",
     description: "The patient is waiting for the first visit.",
-    requiresPayment: true,
+    requiresPayment: false,
     fields: [],
   },
 

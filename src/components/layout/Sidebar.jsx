@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import {
   LayoutDashboard, Users, Stethoscope,
-  Building2, Truck, LogOut, CreditCard, PanelsTopLeft, X, RefreshCw
+  Building2, Truck, LogOut, PanelsTopLeft, X, RefreshCw
 } from "lucide-react";
 import logo from "../../assets/logo/bella.png";
 import useAuthStore from "../../store/auth.store";
@@ -16,7 +16,6 @@ const NAV_ITEMS = [
   { label: "Distributors", to: "/distributors", icon: Truck, roles: ["admin"] },
   { label: "Doctor Profile", to: "/doctor-dashboard", icon: Stethoscope, roles: ["doctor"] },
   { label: "Patients", to: "/patients", icon: Users, roles: ["admin", "doctor"] },
-  { label: "Payments", to: "/my-payments", icon: CreditCard, roles: ["doctor"] },
   { label: "Re-treatments", to: "/retreatments", icon: RefreshCw, roles: ["admin"] },
 ];
 

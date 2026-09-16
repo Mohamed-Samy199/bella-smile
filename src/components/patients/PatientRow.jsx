@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Trash2, CircleArrowRight, Pencil, RefreshCw, CircleArrowLeft, CreditCard, Mail } from "lucide-react";
+import { Trash2, CircleArrowRight, Pencil, RefreshCw, CircleArrowLeft, Mail } from "lucide-react";
 import useAuthStore from "../../store/auth.store";
 import WorkflowModal from "./WorkflowModal";
 import EditPatientModal from "./EditPatientModal";
 import ChangePhaseModal from "./ChangePhaseModal";
 import { WORKFLOW_CONFIG } from "../../constants/workflow";
 import { useNavigate } from "react-router-dom";
-import PaymentModal from "../payments/PaymentModal";
 import { useSetAcceptanceDecision } from "../../hooks/patients/useSetAcceptanceDecision";
 import { openStlEmail } from "../../utils/gmail.utils";
 import SetCasePriceModal from "../patients/SetCasePriceModal";
@@ -33,7 +32,6 @@ export default function PatientRow({ patient, onDelete }) {
   const [showWorkflow, setShowWorkflow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showChangePhase, setShowChangePhase] = useState(false);
-  const [showPayment, setShowPayment] = useState(false);
   const [showSetPrice, setShowSetPrice] = useState(false);
   const [showRetreatment, setShowRetreatment] = useState(false);
   const [showStlTransfer, setShowStlTransfer] = useState(false);
@@ -57,12 +55,6 @@ export default function PatientRow({ patient, onDelete }) {
     user?.role === "doctor" &&
     patient.currentPhase === "Photographic Evaluation Verification" &&
     patient.casePrice?.amount;
-
-  // Doctor في Pick Up → يظهر زرار الدفع
-  const showPayBtn =
-    user?.role === "doctor" &&
-    patient.currentPhase === "Pick Up" &&
-    !patient?.doctor?.paymentExempt;
 
   const showRetreatmentBtn =
     user?.role === "doctor" &&
@@ -300,25 +292,8 @@ export default function PatientRow({ patient, onDelete }) {
               )}
 
 
-            {/* Pay Button — Doctor في Pick Up */}
-            {showPayBtn && (
-              <button
-                onClick={() => setShowPayment(true)}
-                className="flex items-center gap-1 bg-green-500
-                           hover:bg-green-600 text-white text-xs
-                           font-medium px-2.5 py-1.5 rounded-lg
-                           transition active:scale-95"
-                title="Pay to proceed"
-              >
-                <CreditCard size={13} />
-                Pay
-              </button>
-            )}
-
-
-
             {/* Workflow → next phase */}
-            {hasWorkflow && patient.currentPhase !== "Waiting for Acceptance" && (
+            {user?.role === "admin" && hasWorkflow && patient.currentPhase !== "Waiting for Acceptance" && (
               <button onClick={() => setShowWorkflow(true)}
                 className="text-darkColor hover:text-darkColor/70 transition"
                 title="Advance Phase">
@@ -404,12 +379,6 @@ export default function PatientRow({ patient, onDelete }) {
       <SetCasePriceModal
         isOpen={showSetPrice}
         onClose={() => setShowSetPrice(false)}
-        patient={patient}
-      />
-
-      <PaymentModal
-        isOpen={showPayment}
-        onClose={() => setShowPayment(false)}
         patient={patient}
       />
 

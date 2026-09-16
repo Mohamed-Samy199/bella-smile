@@ -62,9 +62,6 @@ function StatusBadge({ patient }) {
     return <span className={`text-xs font-medium px-3 py-1 rounded-full ${cls}`}>{label}</span>;
   }
 
-  if (p === "Pick Up" && patient.casePrice?.amount && !patient.doctor?.paymentExempt)
-    return <span className="text-xs font-medium px-3 py-1 rounded-full bg-amber-100 text-amber-700">Pending payment</span>;
-
   if (p === "Waiting for Acceptance" && ad === "pending")
     return <span className="text-xs font-medium px-3 py-1 rounded-full bg-amber-100 text-amber-700">Awaiting decision</span>;
 
@@ -212,7 +209,6 @@ export default function OverviewPage() {
   const stats = {
     awaiting:   patients.filter(p => p.currentPhase === "Photographic Evaluation").length,
     inProd:     patients.filter(p => ["STL","Manufacturing","Preparation"].includes(p.currentPhase)).length,
-    pendingPay: patients.filter(p => p.currentPhase === "Pick Up" && p.casePrice?.amount).length,
     completed:  patients.filter(p => {
       if (p.currentPhase !== "Completed") return false;
       const d   = new Date(p.updatedAt);
@@ -225,7 +221,6 @@ export default function OverviewPage() {
   const filtered = active.filter((p) => {
     if (filter === "stl")     return p.currentPhase === "STL";
     if (filter === "mfg")     return p.currentPhase === "Manufacturing";
-    if (filter === "payment") return p.currentPhase === "Pick Up" && p.casePrice?.amount;
     return true;
   });
 
@@ -254,7 +249,6 @@ export default function OverviewPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard label="Awaiting evaluation"  value={stats.awaiting}   />
-        <StatCard label="Pending payment"      value={stats.pendingPay} danger />
         <StatCard label="In production"        value={stats.inProd}     />
         <StatCard label="Completed this month" value={stats.completed}  />
       </div>
@@ -279,7 +273,6 @@ export default function OverviewPage() {
               { id: "all",     label: "All"             },
               { id: "stl",     label: "STL"             },
               { id: "mfg",     label: "Manufacturing"   },
-              { id: "payment", label: "Pending payment" },
             ].map((f) => (
               <FilterBtn
                 key={f.id}

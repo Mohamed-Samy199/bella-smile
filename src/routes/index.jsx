@@ -13,9 +13,6 @@ import AreaManagersPage from "../pages/area-managers/AreaManagersPage";
 import DistributorsPage from "../pages/distributors/DistributorsPage";
 import ScrollToTopButton from "../components/shared/ScrollToTopButton/ScrollToTopButton";
 import PatientDetailPage from "../pages/patients/PatientDetailPage";
-import PaymentSuccessPage from "../pages/payments/PaymentSuccessPage";
-import PaymentCancelPage from "../pages/payments/PaymentCancelPage";
-import MyPaymentsPage from "../pages/payments/MyPaymentsPage";
 import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "../pages/auth/ResetPasswordPage";
 import CourseDaish from "../pages/course-daish/CourseDaish";
@@ -51,7 +48,6 @@ export default function AppRoutes() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/patients" element={<PatientsPage />} />
             <Route path="/patients/:id" element={<PatientDetailPage />} />
-            <Route path="/my-payments" element={<MyPaymentsPage />} />
             <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
             <Route path="/overview" element={<OverviewPage />} />
             <Route path="/doctors/:id/overview" element={<DoctorOverviewPage />} />
@@ -68,9 +64,6 @@ export default function AppRoutes() {
             </Route>
           </Route>
         </Route>
-
-        <Route path="/payment/success" element={<PaymentSuccessPage />} />
-        <Route path="/payment/cancel" element={<PaymentCancelPage />} />
 
         {/* ━━━━━━━━━ Fallback ━━━━━━━━━ */}
         <Route path="*" element={<NotFoundPage />} />

@@ -121,7 +121,7 @@ function StatusBadge({ phase }) {
   const map = {
     "Photographic Evaluation":              { label: "Under evaluation",    cls: "bg-green-100 text-green-700"  },
     "Photographic Evaluation Verification": { label: "Evaluation received", cls: "bg-blue-100 text-blue-700"   },
-    "Pick Up":                              { label: "Pending payment",     cls: "bg-amber-100 text-amber-700" },
+    "Pick Up":                              { label: "Awaiting admin approval", cls: "bg-amber-100 text-amber-700" },
     "Preparation":                          { label: "In preparation",      cls: "bg-blue-100 text-blue-700"   },
     "Check Care Plan":                      { label: "Care plan review",    cls: "bg-blue-100 text-blue-700"   },
     "Waiting for Acceptance":               { label: "Awaiting decision",   cls: "bg-amber-100 text-amber-700" },
