@@ -293,7 +293,7 @@ export default function PatientRow({ patient, onDelete }) {
 
 
             {/* Workflow → next phase */}
-            {user?.role === "admin" && hasWorkflow && patient.currentPhase !== "Waiting for Acceptance" && (
+            {hasWorkflow && patient.currentPhase !== "Waiting for Acceptance" && (
               <button onClick={() => setShowWorkflow(true)}
                 className="text-darkColor hover:text-darkColor/70 transition"
                 title="Advance Phase">

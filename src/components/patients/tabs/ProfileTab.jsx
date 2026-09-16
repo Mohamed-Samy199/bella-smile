@@ -153,7 +153,7 @@ export default function ProfileTab({ patient }) {
                 <p className="text-sm text-gray-700 mt-0.5">
                   {patient?.phone || "N/A"}
                 </p>
-                {whatsappNumber && (
+                {/* {whatsappNumber && (
                   <a
                     href={`https://wa.me/${whatsappNumber}`}
                     target="_blank"
@@ -164,7 +164,7 @@ export default function ProfileTab({ patient }) {
                     <MessageCircle size={16} />
                     WhatsApp patient
                   </a>
-                )}
+                )} */}
               </div>
               {/* Row Color */}
               <div className={`w-4 h-4 rounded-full
